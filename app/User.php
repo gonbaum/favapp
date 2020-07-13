@@ -37,10 +37,24 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    # The boot method gets called when we are booting up the model.
+    # Created event gets fired when a new user is created.
+    protected static function boot()
+    {
+        parent::boot();
+        static::created(
+            function($user) {
+                $user->profile()->create([
+                    'title' => $user->username,
+                ]);
+            }
+        );
+    }
+
     #A user relates to many posts.
     public function posts() 
     {
-        return $this->hasMany(Post::class);
+        return $this->hasMany(Post::class)->orderBy('created_at', 'DESC');
     }
 
     #A user relates to one profile.
@@ -48,4 +62,12 @@ class User extends Authenticatable
     {
         return $this->hasOne(Profile::class);
     }
+
+    #A user follows many profiles.
+    public function following() 
+    {
+        return $this->belongsToMany(Profile::class);
+    }
+
+
 }

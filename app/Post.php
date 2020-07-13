@@ -6,7 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
-    protected $guarded = []; #be careful with overriding the guarded method without specifying field types and names to be passed in the controller
+    # Be careful of not overriding the guarded method without specifying validation rules for data passed through the controller
+    protected $guarded = []; 
 
     public function user()
     {

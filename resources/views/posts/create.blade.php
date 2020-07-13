@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('content')
+@section('content') 
 <div class="container">
     <form action="/p" enctype="multipart/form-data" method="post">
         @csrf
