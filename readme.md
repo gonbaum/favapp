@@ -9,6 +9,7 @@ Comments:
 - Frontend implementation looks a little bit 'Naive' given my lack of experience with the framework. Given the short amount of time, I decided to spend most of it with the backend.
 - Pagination is still a little bit clumsy (Same reasons).
 - The like system only works one way (Users like but I still had to fix the system to persist/store liked images between browser sessions and allow to "dislike" a comment).
+- Because of the aforementioned reasons, testing cases are not included.
 
 I hope you appreciate my efforts!
 Best,
