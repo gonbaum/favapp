@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+Use App\Like;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use GuzzleHttp\Client;
 
-class ApiController extends Controller
+class PhotosController extends Controller
 {
 
     public function index()
@@ -34,16 +35,6 @@ class ApiController extends Controller
             $page,
             ['path' => request()->url(), 'query' => request()->query()]
         );
-
-       
-        /*
-       $client = new Client(['verify' => false]);
-       $response = $client->request('GET', $baseurl);
-       $statusCode = $response->getStatusCode();
-       $body = $response->getBody()->getContents();
-       $photos = json_decode($body);*/
-
-       //dd($photos);
        
        return $results;
     }

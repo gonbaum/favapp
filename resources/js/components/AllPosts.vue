@@ -18,17 +18,16 @@
                         </span></p>
                     </div>
                     <div class="pt-1">
-                        <Like-button userId="" imgId="" likes="" isLiked=""></Like-button>
+                        <Like-button :data='post' userId="" imgId="" likes="" isLiked=""></Like-button>
                     </div>
                 </div>
             </div>        
         </div>
-        <pagination :data="laravelData" @pagination-change-page="getResults" :limit=8></pagination>
+        <pagination :data="laravelData" @pagination-change-page="getResults" :limit=8  ></pagination>
     </div>
 </template>
 
 <script>
-
     export default {
 
         mounted() {

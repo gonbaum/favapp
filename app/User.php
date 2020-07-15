@@ -8,7 +8,6 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -55,6 +54,12 @@ class User extends Authenticatable
     public function posts() 
     {
         return $this->hasMany(Post::class)->orderBy('created_at', 'DESC');
+    }
+
+     #A user relates to many likes.
+    public function likes() 
+    {
+        return $this->hasMany(Like::class);
     }
 
     #A user relates to one profile.

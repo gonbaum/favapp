@@ -8,10 +8,14 @@ use Intervention\Image\Facades\Image;
 
 class PostsController extends Controller
 {
-
-
+    
+    public function __construct()
+    {
+        $this->middleware('auth');  
+    }
 
     # Index view
+
     public function index() {
         
         # Grab the users id's of the profiles that the auth user is following
@@ -28,7 +32,6 @@ class PostsController extends Controller
         return view('posts.create');
     }
 
-    # TODO: This store function will be refactored as a like function, unless we created it separatedly
     public function store() 
     {
         $data = request()->validate([

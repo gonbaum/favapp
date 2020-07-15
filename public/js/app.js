@@ -1816,31 +1816,40 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['userId', 'imgId', 'likes', 'isLiked'],
+  props: ['data', 'csrf_token'],
   mounted: function mounted() {
     console.log('Component mounted.');
   },
   data: function data() {
     return {
-      status: this.isLiked
+      isLiked: true
     };
   },
   methods: {
     likeImg: function likeImg() {
-      /*axios.post('/profile/' + this.userId + '/like/' + this.imgId)
-          .then(response => {
-              this.status = !this.isLiked
-          })
-          .catch(errors => {
-              if (errors.response.status == 401) {
-                  window.location = '/login'
-              }
-          })*/
+      var _this = this;
+
+      axios.post('/like', {
+        'image_id': this.data.id,
+        'image_url': this.data.url,
+        'caption': this.data.title
+      }, {
+        headers: {
+          'Authorization': $('meta[name=csrf-token]').attr('content')
+        }
+      }).then(function (response) {
+        _this.isLiked = !_this.isLiked;
+      })["catch"](function (errors) {
+        if (errors) {
+          //this.isLiked = !this.isLiked
+          alert('An error has ocurred');
+        }
+      });
     }
   },
   computed: {
     buttonText: function buttonText() {
-      return this.status ? 'Unlike' : 'Like';
+      return this.isLiked ? 'Like' : 'Unlike';
     }
   }
 });
@@ -38088,7 +38097,13 @@ var render = function() {
                 { staticClass: "pt-1" },
                 [
                   _c("Like-button", {
-                    attrs: { userId: "", imgId: "", likes: "", isLiked: "" }
+                    attrs: {
+                      data: post,
+                      userId: "",
+                      imgId: "",
+                      likes: "",
+                      isLiked: ""
+                    }
                   })
                 ],
                 1

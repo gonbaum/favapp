@@ -6,7 +6,7 @@
 
 <script>
     export default {
-        props: ['userId', 'imgId', 'likes', 'isLiked'],
+        props: ['data', 'csrf_token'],
 
         mounted() {
             console.log('Component mounted.')
@@ -14,27 +14,33 @@
 
         data: function () {
             return {
-                status: this.isLiked,
+                isLiked: true
             }
         },
 
         methods: {
             likeImg() {
-                /*axios.post('/profile/' + this.userId + '/like/' + this.imgId)
+                axios.post('/like', {
+                    'image_id' : this.data.id,
+                    'image_url' : this.data.url,
+                    'caption' : this.data.title,
+                }, 
+                {headers: {'Authorization': $('meta[name=csrf-token]').attr('content')}} )
                     .then(response => {
-                        this.status = !this.isLiked
+                        this.isLiked = !this.isLiked
                     })
                     .catch(errors => {
-                        if (errors.response.status == 401) {
-                            window.location = '/login'
+                        if (errors) {
+                            //this.isLiked = !this.isLiked
+                            alert('An error has ocurred')
                         }
-                    })*/
+                    })
             }
         },
 
         computed: {
             buttonText() {
-                return (this.status) ? 'Unlike' : 'Like'
+                return (this.isLiked) ? 'Like' : 'Unlike'
             }
         }
     }
